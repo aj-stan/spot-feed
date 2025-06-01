@@ -1,29 +1,76 @@
-# High-Level Overview
+# Spot Feed
 
-## Spot Feed Concept:
+A geo-location–based social connector app for coordinating activities without exchanging direct contact details.
 
-**Purpose:** A geo-location–based social connector app that lets users create "Joints" (groups) to coordinate activities in a specific area without exchanging direct contact details.
+## Concept
 
-## Core Features:
+**Purpose:** Create "Joints" (groups) to coordinate activities in specific areas with privacy-focused social interaction.
 
-- Location-based discovery of groups
-- Temporary, self-expiring groups (6-hour lifespan)
-- Public, private, and hidden group configurations
-- In-group messaging including text, images, audio, and video
-- Moderation controls, including delegation of creator roles and moderators
-- Social linking (Facebook, Instagram, WhatsApp) with an option to mask/unmask
-- Privacy controls such as saving profiles for later contact
-- Notifications for group join requests, proximity alerts, and creator controls when leaving the group vicinity
-- Support for guest login (temporary accounts)
+## Core Features
 
-## Technical Stack:
+- **Location-based Discovery:** Find groups near you
+- **Temporary Groups:** Self-expiring Joints with 6-hour lifespan
+- **Visibility Options:** Public, private, and hidden configurations
+- **Rich Messaging:** Text, images, audio, and video
+- **Moderation Tools:** Creator roles and moderator delegation
+- **Social Integration:** Link Facebook, Instagram, WhatsApp with mask/unmask options
+- **Privacy Controls:** Save profiles for later contact
+- **Smart Notifications:** Join requests, proximity alerts, creator controls
+- **Guest Access:** Temporary account support
 
-- Backend: Rust
-- Database: Postgress
-- Mobile App: Flutter or Kotlin
-- Authentication: JWT
+## Technical Stack
 
-## Project Status:
+- **Backend:** Rust
+- **Database:** PostgreSQL
+- **Mobile App:** Flutter
+- **Authentication:** JWT
+
+## API Endpoints
+
+### Auth
+- `POST /api/auth/login`
+- `POST /api/auth/verify-otp`
+- `POST /api/auth/guest`
+
+### User
+- `GET /api/user/profile`
+- `PUT /api/user/profile`
+- `POST /api/user/social-links`
+
+### Joints
+- `GET /api/joints/active`
+- `GET /api/joints/nearby?lat={lat}&lng={lng}`
+- `POST /api/joints` (create new joint)
+- `PUT /api/joints/{jointID}` (update settings)
+- `POST /api/joints/{jointID}/join-request`
+- `DELETE /api/joints/{jointID}`
+- `POST /api/joints/{jointID}/messages`
+
+### Moderation & Reporting
+- `POST /api/joints/{jointID}/report`
+- `PUT /api/joints/{jointID}/moderation`
+
+## Team
+
+- **Project Owner:** Tobias
+- **Front-end Developers:** Siyas, Amal
+- **Back-end Developer:** aj-stanley
+
+## Project Status
 
 - Current version: 0.1.0 (Early development)
 
+## Roadmap
+
+- [ ] MVP Release (0.1.0)
+- [ ] User Authentication & Profile Management
+- [ ] Joint Creation & Management
+- [ ] In-Group Messaging
+- [ ] Moderation & Reporting
+- [ ] Social Linking
+- [ ] Privacy Controls
+- [ ] Notifications
+- [ ] Guest Login
+- [ ] Mobile App Development
+- [ ] Testing & Quality Assurance
+- [x] Documentation

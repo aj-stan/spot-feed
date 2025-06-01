@@ -21,9 +21,8 @@ A geo-location–based social connector app for coordinating activities without 
 ## Technical Stack
 
 - **Backend:** Rust
-- **Database:** PostgreSQL
 - **Mobile App:** Flutter
-- **Authentication:** JWT
+- **Database:** PostgreSQL
 
 ## API Endpoints
 
@@ -52,9 +51,9 @@ A geo-location–based social connector app for coordinating activities without 
 
 ## Team
 
-- **Project Owner:** Tobias
 - **Front-end Developers:** Siyas, Amal
 - **Back-end Developer:** aj-stanley
+- **Project Owner:** Tobias
 
 ## Project Status
 

@@ -49,11 +49,37 @@ A geo-location–based social connector app for coordinating activities without 
 - `POST /api/joints/{jointID}/report`
 - `PUT /api/joints/{jointID}/moderation`
 
-## Team
-
-- **Front-end Developers:** Siyas, Amal
-- **Back-end Developer:** aj-stanley
-- **Project Owner:** Tobias
+## High-Level Modular Design
+We'll use modular boundaries to separate concerns:
+```
+┌────────────────────────────┐
+│        API Gateway         │  (optional, for routing/ratelimiting)
+└────────────────────────────┘
+           │
+           ▼
+┌────────────────────────────┐
+│        Web Layer           │
+│  (REST controllers, WS)    │
+└────────────────────────────┘
+           │
+           ▼
+┌────────────────────────────┐
+│      Application Layer     │
+│   (business logic, usecases)│
+└────────────────────────────┘
+           │
+           ▼
+┌────────────────────────────┐
+│        Domain Layer        │
+│  (entities, traits, types) │
+└────────────────────────────┘
+           │
+           ▼
+┌────────────────────────────┐
+│      Infrastructure Layer  │
+│  (DB, external APIs, etc)  │
+└────────────────────────────┘
+```
 
 ## Project Status
 

@@ -2,6 +2,7 @@
 name = "spot-feed"
 version = "0.1.0"
 edition = "2024"
+authors = ["aj-stanley"]
 
 [dependencies]
 ntex = "2.12.4"

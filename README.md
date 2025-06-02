@@ -65,7 +65,7 @@ We'll use modular boundaries to separate concerns:
            ▼
 ┌────────────────────────────┐
 │      Application Layer     │
-│   (business logic, usecases)│
+│   (business logic, DTOs)   │
 └────────────────────────────┘
            │
            ▼

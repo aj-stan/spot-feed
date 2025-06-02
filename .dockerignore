@@ -1,0 +1,10 @@
+# Exclude unnecessary files
+.dockerignore
+Dockerfile
+README.md
+
+.git
+*.log
+
+# exclude .env files
+*.env

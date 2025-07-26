@@ -2,7 +2,22 @@
 name = "spot-feed"
 version = "0.1.0"
 edition = "2024"
-authors = ["aj-stanley"]
 
 [dependencies]
-ntex = "2.12.4"
+anyhow = "1.0.98"
+argon2 = "0.5.3"
+chrono = { version = "0.4.41", features = ["serde"] }
+deadpool-postgres = "0.14.1"
+dotenv = "0.15.0"
+ntex = { version = "2.15.1", features = ["tokio"] }
+password-hash = "0.5.0"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.141"
+
+thiserror = "2.0.12"
+tokio = { version = "1.46.1", features = ["full"] }
+tokio-postgres = { version = "0.7.13", features = [
+    "with-uuid-1",
+    "with-chrono-0_4",
+] }
+uuid = { version = "1.17.0", features = ["v4", "serde"] }

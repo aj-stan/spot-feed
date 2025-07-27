@@ -1,4 +1,4 @@
-use crate::db::users::queries::create_user;
+use crate::db::users::queries::*;
 
 use deadpool_postgres::Pool;
 use ntex::web::{self, HttpResponse, ServiceConfig, types::Json};
@@ -40,9 +40,21 @@ pub async fn register(
     }
 }
 
-pub async fn login(Json(req): Json<LoginRequest>) -> HttpResponse {
-    // TODO: Plug in login logic
-    HttpResponse::Ok().body(format!("Stub: Logged in {}", req.username))
+pub async fn login(pool: web::types::State<Pool>, Json(req): Json<LoginRequest>) -> HttpResponse {
+    match find_user_by_username(&pool, &req.username).await {
+        Ok(user) => {
+            if user.password_hash == req.password {
+                // TODO: generate token/session
+                HttpResponse::Ok().json(&serde_json::json!({
+                    "user_id": user.id,
+                    "message": "Login successful"
+                }))
+            } else {
+                HttpResponse::Unauthorized().body("Invalid credentials")
+            }
+        }
+        Err(_) => HttpResponse::Unauthorized().body("User not found"),
+    }
 }
 
 pub async fn verify_otp(Json(req): Json<VerifyOtpRequest>) -> HttpResponse {

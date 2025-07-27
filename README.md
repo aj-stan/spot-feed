@@ -18,36 +18,6 @@ A geo-location–based social connector app for coordinating activities without 
 - **Smart Notifications:** Join requests, proximity alerts, creator controls
 - **Guest Access:** Temporary account support
 
-## Technical Stack
-
-- **Backend:** Rust
-- **Mobile App:** Flutter
-- **Database:** PostgreSQL
-
-## API Endpoints
-
-### Auth
-- `POST /api/auth/login`
-- `POST /api/auth/verify-otp`
-- `POST /api/auth/guest`
-
-### User
-- `GET /api/user/profile`
-- `PUT /api/user/profile`
-- `POST /api/user/social-links`
-
-### Joints
-- `GET /api/joints/active`
-- `GET /api/joints/nearby?lat={lat}&lng={lng}`
-- `POST /api/joints` (create new joint)
-- `PUT /api/joints/{jointID}` (update settings)
-- `POST /api/joints/{jointID}/join-request`
-- `DELETE /api/joints/{jointID}`
-- `POST /api/joints/{jointID}/messages`
-
-### Moderation & Reporting
-- `POST /api/joints/{jointID}/report`
-- `PUT /api/joints/{jointID}/moderation`
 
 ## High-Level Modular Design
 We'll use modular boundaries to separate concerns:

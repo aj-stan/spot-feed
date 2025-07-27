@@ -23,6 +23,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .state(pool.clone())
             .service(ping)
+            .configure(api::auth::config)
             .configure(api::users::config)
     })
     .bind((config.bind_ip.as_str(), config.bind_port))?

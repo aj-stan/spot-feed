@@ -3,7 +3,7 @@ use crate::db::users::queries::*;
 use deadpool_postgres::Pool;
 use ntex::web::{self, HttpResponse, ServiceConfig, types::Json};
 use serde::Deserialize;
-
+use uuid::Uuid;
 // ---- Request structs ----
 #[derive(Deserialize)]
 pub struct RegisterRequest {
@@ -21,12 +21,12 @@ pub struct LoginRequest {
 #[derive(Deserialize)]
 pub struct VerifyOtpRequest {
     pub email: String,
-    pub otp: String,
+    // pub otp: String,
 }
 
 #[derive(Deserialize)]
 pub struct GuestRequest {
-    pub device_id: Option<String>,
+    // pub device_id: Option<String>,
 }
 
 // ---- Handler functions ----
@@ -62,9 +62,22 @@ pub async fn verify_otp(Json(req): Json<VerifyOtpRequest>) -> HttpResponse {
     HttpResponse::Ok().body(format!("Stub: OTP for {}", req.email))
 }
 
-pub async fn guest(Json(req): Json<GuestRequest>) -> HttpResponse {
-    // TODO: Plug in guest session logic
-    HttpResponse::Ok().body(format!("Stub: Guest login {:?}", req.device_id))
+// Minimal guest logic
+pub async fn guest(pool: web::types::State<Pool>, Json(_req): Json<GuestRequest>) -> HttpResponse {
+    // For demo: generate random username/email
+    let id = Uuid::new_v4();
+    let username = format!("guest_{id}");
+    let email = format!("{id}@guest.local");
+    let password = Uuid::new_v4().to_string(); // random, never exposed
+    match create_guest_user(&pool, &username, &email, &password).await {
+        Ok(user) => HttpResponse::Ok().json(&serde_json::json!({
+            "user_id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "is_guest": user.is_guest,
+        })),
+        Err(e) => HttpResponse::InternalServerError().body(format!("Guest login failed: {e}")),
+    }
 }
 
 // ---- Route registration ----

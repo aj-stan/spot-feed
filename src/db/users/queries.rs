@@ -32,3 +32,22 @@ pub async fn find_user_by_username(pool: &Pool, username: &str) -> Result<User, 
     let row = client.query_one(stmt, &[&username]).await?;
     Ok(User::from_row(&row))
 }
+
+pub async fn create_guest_user(
+    pool: &Pool,
+    username: &str,
+    email: &str,
+    password: &str,
+) -> Result<User, anyhow::Error> {
+    let client = pool.get().await?;
+    let user_id = Uuid::new_v4();
+    let stmt = "
+        INSERT INTO users (id, username, email, password_hash, is_guest)
+        VALUES ($1, $2, $3, $4, true)
+        RETURNING *
+    ";
+    let row = client
+        .query_one(stmt, &[&user_id, &username, &email, &password])
+        .await?;
+    Ok(User::from_row(&row))
+}

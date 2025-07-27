@@ -25,3 +25,10 @@ pub async fn create_user(
         .await?;
     Ok(User::from_row(&row))
 }
+
+pub async fn find_user_by_username(pool: &Pool, username: &str) -> Result<User, anyhow::Error> {
+    let client = pool.get().await?;
+    let stmt = "SELECT * FROM users WHERE username = $1";
+    let row = client.query_one(stmt, &[&username]).await?;
+    Ok(User::from_row(&row))
+}
